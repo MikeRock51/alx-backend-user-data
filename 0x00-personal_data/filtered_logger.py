@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-    Write a function called filter_datum that returns the log message obfuscated:
+    Write a function called filter_datum that
+    returns the log message obfuscated:
 
     Arguments:
         fields: a list of strings representing all fields to obfuscate
@@ -18,7 +19,11 @@ import logging
 import re
 
 
-def filter_datum(fields: int, redaction: str, message: str,
-        seperator: str) -> None:
+def filter_datum(fields: int, redaction: str,
+            message: str, seperator: str) -> None:
     """Uses regex to replace occuerences of certain values"""
 
+    for field in fields:
+        message = re.sub(f"{field}=([^{seperator}]+)", f"{field}={redaction}", message)
+
+    return message
