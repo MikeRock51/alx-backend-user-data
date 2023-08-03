@@ -20,10 +20,11 @@ import re
 
 
 def filter_datum(fields: int, redaction: str,
-            message: str, seperator: str) -> None:
+                 message: str, seperator: str) -> None:
     """Uses regex to replace occuerences of certain values"""
 
     for field in fields:
-        message = re.sub(f"{field}=([^{seperator}]+)", f"{field}={redaction}", message)
+        message = re.sub(f"{field}=([^{seperator}]+)",
+                         f"{field}={redaction}", message)
 
     return message
