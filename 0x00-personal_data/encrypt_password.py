@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-    Implement a hash_password function that expects one string argument name
-    password and returns a salted, hashed password, which is a byte string.
-"""
+"""Handles user password"""
 
 import bcrypt
 
@@ -12,3 +9,8 @@ def hash_password(password: str) -> bytes:
     hashed = bcrypt.hashpw(bytes(password, "UTF-8"), bcrypt.gensalt())
 
     return hashed
+
+
+def is_valid(hashed_password: bytes, password: str) -> bool:
+    """Checks if given password matches the hashed password"""
+    return bcrypt.checkpw(bytes(password, "UTF-8"), hashed_password)
