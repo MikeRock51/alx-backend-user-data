@@ -94,7 +94,7 @@ def main() -> None:
 
     cursor.execute("SELECT * FROM users;")
     users = cursor.fetchall()
-    messages = []
+    logger = get_logger()
 
     for user in users:
         msg = ""
@@ -102,15 +102,9 @@ def main() -> None:
             if key == "last_login":
                 value = str(value)
             msg += f"{key}={value}; "
-        messages.append(msg.strip())
-
-        formatter = RedactingFormatter(list(PII_FIELDS))
-
-        for message in messages:
-            logRecord = logging.LogRecord("user_data", logging.INFO,
-                                          None, None, message, None, None)
-            print(formatter.format(logRecord))
+        logger.info(msg.strip())
 
     cursor.close()
+
 
 main()
