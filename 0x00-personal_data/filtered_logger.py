@@ -18,7 +18,6 @@
 import logging
 import re
 from typing import List
-from mysql.connector.connection import CMySQLConnection
 import mysql.connector
 from os import getenv
 
@@ -70,8 +69,8 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> CMySQLConnection:
-    """Returns a connector to the requested datbase"""
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """Returns a connector to the requested database"""
     config = {
         "user": getenv("PERSONAL_DATA_DB_USERNAME") or "root",
         "password": getenv("PERSONAL_DATA_DB_PASSWORD") or "",
@@ -79,6 +78,7 @@ def get_db() -> CMySQLConnection:
         "database": getenv("PERSONAL_DATA_DB_NAME")
     }
 
-    connector = mysql.connector.connect(**config)
+    connector = mysql.connector.connect(use_pure=True, **config)
+    # print(type(connector))
 
     return connector
