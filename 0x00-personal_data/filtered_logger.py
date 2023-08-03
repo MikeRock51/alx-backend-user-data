@@ -33,6 +33,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        """Applies redaction to incoming records"""
         msg = filter_datum(self.fields, self.REDACTION, record.msg,
                            self.SEPARATOR)
         record.msg = msg
@@ -44,9 +45,7 @@ class RedactingFormatter(logging.Formatter):
 def filter_datum(fields: int, redaction: str,
                  message: str, seperator: str) -> str:
     """Uses regex to replace occuerences of certain values"""
-
     for field in fields:
         message = re.sub(f"{field}=([^{seperator}]+)",
                          f"{field}={redaction}", message)
-
     return message
