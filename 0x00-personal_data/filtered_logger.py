@@ -17,7 +17,7 @@
 
 import logging
 import re
-from typing import List, Iterable
+from typing import List
 
 
 PII_FIELDS = ("email", "ssn", "password", "ip", "name")
@@ -31,7 +31,7 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: Iterable[str]):
+    def __init__(self, fields: List[str]):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
@@ -45,7 +45,7 @@ class RedactingFormatter(logging.Formatter):
         return message
 
 
-def filter_datum(fields: Iterable[str], redaction: str,
+def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
     """Uses regex to replace occurrences of certain values"""
     for field in fields:
@@ -57,7 +57,7 @@ def filter_datum(fields: Iterable[str], redaction: str,
 def get_logger() -> logging.Logger:
     """Handles user_data logging"""
     logger = logging.getLogger("user_data")
-    formatter = RedactingFormatter(fields=PII_FIELDS)
+    formatter = RedactingFormatter(fields=list(PII_FIELDS))
     streamHandler = logging.StreamHandler()
     streamHandler.setFormatter(formatter)
     logger.addHandler(streamHandler)
