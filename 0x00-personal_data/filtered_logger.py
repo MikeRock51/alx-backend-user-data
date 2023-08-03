@@ -82,3 +82,34 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     # print(type(connector))
 
     return connector
+
+
+def main() -> None:
+    """
+        Retrieve all rows in the users table and
+        display each row under a filtered format
+    """
+    conn = get_db()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM users;")
+    users = cursor.fetchall()
+    messages = []
+
+    for user in users:
+        msg = ""
+        for key, value in user.items():
+            if key == "last_login":
+                value = str(value)
+            msg += f"{key}={value}; "
+        messages.append(msg.strip())
+
+        formatter = RedactingFormatter(list(PII_FIELDS))
+
+        for message in messages:
+            logRecord = logging.LogRecord("user_data", logging.INFO,
+                                          None, None, message, None, None)
+            print(formatter.format(logRecord))
+
+
+main()
