@@ -42,7 +42,7 @@ class RedactingFormatter(logging.Formatter):
         return message
 
 
-def filter_datum(fields: int, redaction: str,
+def filter_datum(fields: List[str], redaction: str,
                  message: str, seperator: str) -> str:
     """Uses regex to replace occuerences of certain values"""
     for field in fields:
