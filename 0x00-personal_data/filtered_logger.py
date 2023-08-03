@@ -18,7 +18,7 @@
 import logging
 import re
 from typing import List
-from mysql.connector.connection_cext import CMySQLConnection
+from mysql.connector.connection import CMySQLConnection
 import mysql.connector
 from os import getenv
 
