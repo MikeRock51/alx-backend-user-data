@@ -111,5 +111,6 @@ def main() -> None:
                                           None, None, message, None, None)
             print(formatter.format(logRecord))
 
+    cursor.close()
 
 main()
