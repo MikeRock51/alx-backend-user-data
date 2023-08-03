@@ -43,9 +43,9 @@ class RedactingFormatter(logging.Formatter):
 
 
 def filter_datum(fields: List[str], redaction: str,
-                 message: str, seperator: str) -> str:
-    """Uses regex to replace occuerences of certain values"""
+                 message: str, separator: str) -> str:
+    """Uses regex to replace occurrences of certain values"""
     for field in fields:
-        message = re.sub(f"{field}=([^{seperator}]+)",
+        message = re.sub(f"{field}=([^{separator}]+)",
                          f"{field}={redaction}", message)
     return message
