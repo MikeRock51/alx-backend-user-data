@@ -18,6 +18,9 @@
 import logging
 import re
 from typing import List
+from mysql.connector.connection_cext import CMySQLConnection
+import mysql.connector
+from os import getenv
 
 
 PII_FIELDS = ("email", "ssn", "password", "phone", "name")
@@ -65,3 +68,17 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
 
     return logger
+
+
+def get_db() -> CMySQLConnection:
+    """Returns a connector to the requested datbase"""
+    config = {
+        "user": getenv("PERSONAL_DATA_DB_USERNAME") or "root",
+        "password": getenv("PERSONAL_DATA_DB_PASSWORD") or "",
+        "host": getenv("PERSONAL_DATA_DB_HOST") or "localhost",
+        "database": getenv("PERSONAL_DATA_DB_NAME")
+    }
+
+    connector = mysql.connector.connect(**config)
+
+    return connector
