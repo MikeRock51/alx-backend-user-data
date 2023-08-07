@@ -1,0 +1,14 @@
+from models.user import User
+from models.base import Base
+import uuid
+
+""" Create a user test """
+user_email = str(uuid.uuid4())
+user_clear_pwd = str(uuid.uuid4())
+user = User()
+user.email = user_email
+user.first_name = "Mike"
+user.last_name = "Adebayo"
+user.password = user_clear_pwd
+print("New user: {}".format(user.display_name()))
+user.save()
