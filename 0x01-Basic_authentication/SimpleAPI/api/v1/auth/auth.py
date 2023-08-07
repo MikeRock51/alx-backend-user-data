@@ -2,14 +2,20 @@
 """The auth module to handle authentication"""
 
 from flask import request
-from typing import List, TypeVar 
+from typing import List, TypeVar
 
 
 class Auth:
     """Manages the API authentication"""
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Returns false...I guesss"""
-        return False
+        """Checks whether or a not a path requires authentication"""
+        if not path or not excluded_paths or len(excluded_paths) < 1\
+                or path not in excluded_paths:
+            return True
+        if path in excluded_paths or path.strip('/') in excluded_paths:
+            return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """Iono yet..."""
