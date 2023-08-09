@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
-""" Main 0
+""" Main 1
 """
-import base64
-from api.v1.auth.basic_auth import BasicAuth
-from models.user import User
+from api.v1.auth.session_auth import SessionAuth
 
-""" Create a user test """
-user_email = "bob@hbtn.io"
-user_clear_pwd = "H0lbertonSchool98!"
+sa = SessionAuth()
 
-user = User()
-user.email = user_email
-user.password = user_clear_pwd
-print("New user: {}".format(user.id))
-user.save()
+print("{}: {}".format(type(sa.user_id_by_session_id), sa.user_id_by_session_id))
 
-basic_clear = "{}:{}".format(user_email, user_clear_pwd)
-print("Basic Base64: {}".format(base64.b64encode(basic_clear.encode('utf-8')).decode("utf-8")))
+user_id = None
+session = sa.create_session(user_id)
+print("{} => {}: {}".format(user_id, session, sa.user_id_by_session_id))
+
+user_id = 89
+session = sa.create_session(user_id)
+print("{} => {}: {}".format(user_id, session, sa.user_id_by_session_id))
+
+user_id = "abcde"
+session = sa.create_session(user_id)
+print("{} => {}: {}".format(user_id, session, sa.user_id_by_session_id))
+
+user_id = "fghij"
+session = sa.create_session(user_id)
+print("{} => {}: {}".format(user_id, session, sa.user_id_by_session_id))
+
+user_id = "abcde"
+session = sa.create_session(user_id)
+print("{} => {}: {}".format(user_id, session, sa.user_id_by_session_id))
