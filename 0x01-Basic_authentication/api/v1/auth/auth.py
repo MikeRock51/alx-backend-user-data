@@ -20,7 +20,7 @@ class Auth:
         if path in excluded_paths:
             return False
 
-        if any(re.match(f"r{pattern}", path) for pattern in excluded_paths):
+        if any(re.match(pattern[:-1], path) for pattern in excluded_paths):
             return False
 
         return True
