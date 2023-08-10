@@ -18,7 +18,7 @@ def sessionAuthenticate():
     if not password:
         return jsonify({"error": "password missing"}), 400
 
-    user: User = User().search({"email": email})
+    user = User().search({"email": email})
 
     try:
         user = user[0]
