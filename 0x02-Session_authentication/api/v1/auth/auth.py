@@ -18,6 +18,8 @@ class Auth:
         if path[-1] != '/':
             path = path + '/'
 
+        # print(path == '/api/v1/session_auth/logout/')
+
         if path in excluded_paths:
             return False
 
