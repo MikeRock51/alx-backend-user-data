@@ -36,7 +36,7 @@ class Auth:
         return authorization
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """Still don't know"""
+        """Overloaded in children classes"""
         return None
 
     def session_cookie(self, request=None):
