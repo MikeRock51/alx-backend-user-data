@@ -25,3 +25,18 @@ class SessionAuth(Auth):
             return None
 
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """Returns a user based on the cookie value"""
+        from models.user import User
+        sessionID = self.session_cookie(request)
+        if not sessionID:
+            return None
+
+        userID = self.user_id_for_session_id(sessionID)
+        if not userID:
+            return None
+
+        user = User.get(userID)
+
+        return user
