@@ -20,10 +20,11 @@ def sessionAuthenticate():
 
     user: User = User().search({"email": email})
 
-    if not user:
-        abort(404)
+    try:
+        user = user[0]
+    except IndexError:
+        return jsonify({"error": "no user found for this email"}), 404
 
-    user = user[0]
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
 
