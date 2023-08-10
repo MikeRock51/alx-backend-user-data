@@ -30,6 +30,6 @@ def sessionAuthenticate():
     from api.v1.app import auth
     sessionID = auth.create_session(user.id)
 
-    response = make_response(jsonify(user.to_json()))
+    response = jsonify(user.to_json())
     response.set_cookie(getenv("SESSION_NAME"), sessionID)
     return response, 201
