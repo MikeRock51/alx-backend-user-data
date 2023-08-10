@@ -32,4 +32,4 @@ def sessionAuthenticate():
 
     response = jsonify(user.to_json())
     response.set_cookie(getenv("SESSION_NAME"), sessionID)
-    return response, 201
+    return make_response(response, 201)
