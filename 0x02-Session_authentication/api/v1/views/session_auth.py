@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+"""Session authentication module"""
+
 from api.v1.views import app_views
 from flask import request, jsonify, abort, make_response
 from api.v1.views.users import User
