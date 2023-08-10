@@ -18,14 +18,18 @@ def sessionAuthenticate():
     if not password:
         return jsonify({"error": "password missing"}), 400
 
-    user = User().search({"email": email})
+    users = User().search({"email": email})
 
-    try:
-        user = user[0]
-    except IndexError:
+    if not users or len(users) < 1:
         return jsonify({"error": "no user found for this email"}), 404
 
-    if not user.is_valid_password(password):
+    user = None
+    for u in users:
+        if u.is_valid_password(password):
+            user = u
+            break
+
+    if not user:
         return jsonify({"error": "wrong password"}), 401
 
     from api.v1.app import auth
