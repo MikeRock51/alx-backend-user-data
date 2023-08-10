@@ -18,7 +18,10 @@ def sessionAuthenticate():
     if not password:
         return jsonify({"error": "password missing"}), 400
 
-    users = User().search({"email": email})
+    try:
+        users = User().search({"email": email})
+    except Exception:
+        return jsonify({"error": "no user found for this email"}), 404
 
     if not users or len(users) < 1:
         return jsonify({"error": "no user found for this email"}), 404
