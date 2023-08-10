@@ -7,8 +7,7 @@ from datetime import datetime, timedelta
 
 
 class SessionDBAuth(SessionExpAuth):
-    """"""
-
+    """Manages user sessions from db"""
     def create_session(self, user_id=None):
         """Creates and stores a new User Session"""
         if not user_id or type(user_id) != str:
