@@ -60,7 +60,8 @@ class DB:
     def update_user(self, user_id: int, **kwargs: Dict) -> None:
         """Updates the user with the user_id"""
         user = self.find_user_by(id=user_id)
-        
+        if not user:
+            return None
         for key, value in kwargs.items():
             if key not in UserFields:
                 raise ValueError
