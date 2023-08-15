@@ -4,8 +4,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 # import from .exc
+from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
 # UserFields = ['id', 'email', 'session_id' 'hashed_password', 'reset_token']
