@@ -35,9 +35,7 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Saves a user to the database"""
-        if not email or type(email) != str:
-            return None
-        if not hashed_password or type(hashed_password) != str:
+        if not email or not hashed_password:
             return None
 
         user = User(email=email, hashed_password=hashed_password)
