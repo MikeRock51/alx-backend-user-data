@@ -4,8 +4,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-
+from sqlalchemy.exc import NoResultFound, InvalidRequestError
 from user import Base, User
+
+# UserFields = ['id', 'email', 'session_id' 'hashed_password', 'reset_token']
 
 
 class DB:
@@ -41,3 +43,16 @@ class DB:
         self._session.commit()
 
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """Returns the first row with the provided key, word argument"""
+        if not kwargs or any(key not in dir(User) for key in kwargs):
+            raise InvalidRequestError
+
+        session = self._session
+
+        try:
+            user = session.query(User).filter_by(**kwargs).one()
+            return user
+        except NoResultFound as e:
+            raise e
