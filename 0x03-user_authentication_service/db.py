@@ -9,7 +9,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
 
-# UserFields = ['id', 'email', 'session_id' 'hashed_password', 'reset_token']
+UserFields = ['id', 'email', 'session_id' 'hashed_password', 'reset_token']
 
 
 class DB:
@@ -48,7 +48,7 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Returns the first row with the provided key, word argument"""
-        if not kwargs or any(key not in dir(User) for key in kwargs):
+        if not kwargs or any(key not in UserFields for key in kwargs):
             raise InvalidRequestError
 
         session = self._session
