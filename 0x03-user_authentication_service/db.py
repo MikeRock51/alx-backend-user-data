@@ -19,7 +19,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -51,10 +51,8 @@ class DB:
         if not kwargs or any(key not in UserFields for key in kwargs):
             raise InvalidRequestError
 
-        session = self._session
-
         try:
-            user = session.query(User).filter_by(**kwargs).one()
+            user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except NoResultFound as e:
             raise e
