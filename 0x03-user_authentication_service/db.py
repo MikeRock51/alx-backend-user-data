@@ -8,8 +8,9 @@ from sqlalchemy.orm.exc import NoResultFound
 # import from .exc
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
+from typing import Dict
 
-UserFields = ['id', 'email', 'session_id' 'hashed_password', 'reset_token']
+UserFields = ['id', 'email', 'session_id', 'hashed_password', 'reset_token']
 
 
 class DB:
@@ -45,7 +46,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs) -> User:
+    def find_user_by(self, **kwargs: Dict) -> User:
         """Returns the first row with the provided key, word argument"""
         if not kwargs or any(key not in UserFields for key in kwargs):
             raise InvalidRequestError
@@ -55,3 +56,15 @@ class DB:
             return user
         except NoResultFound as e:
             raise e
+
+    def update_user(self, user_id: int, **kwargs: Dict) -> None:
+        """Updates the user with the user_id"""
+        user = self.find_user_by(id=user_id)
+        if not user:
+            return None
+        for key, value in kwargs.items():
+            if key not in UserFields:
+                raise ValueError
+            setattr(user, key, value)
+
+        return None

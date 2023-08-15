@@ -2,15 +2,23 @@
 """
 Main file
 """
-
 from db import DB
 from user import User
 
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
+
+
 my_db = DB()
 
-user_1 = my_db.add_user("test@test.com", "SuperHashedPwd")
-print(user_1.id)
+email = 'test@test.com'
+hashed_password = "hashedPwd"
 
-user_2 = my_db.add_user("test1@test.com", "SuperHashedPwd1")
-print(user_2.id)
+user = my_db.add_user(email, hashed_password)
+print(user.id)
 
+try:
+    my_db.update_user(user.id, hashed_password='NewPwd')
+    print("Password updated")
+except ValueError:
+    print("Error")
