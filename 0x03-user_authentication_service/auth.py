@@ -77,8 +77,6 @@ class Auth:
             return None
 
         try:
-            user = find_user_by(id=user_id)
-            user.session_id = None
-            self._db._session.commit()
-        except NoResultFound:
-            return
+            self._db.update_user(user_id, session_id=None)
+        except ValueError:
+            return None
