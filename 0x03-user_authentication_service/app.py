@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Flask Application"""
 
-from flask import Flask, jsonify, request, abort, redirect, urlfor
+from flask import Flask, jsonify, request, abort, redirect, url_for
 from flask_cors import CORS
 from auth import Auth
 
@@ -45,6 +45,7 @@ def getSession() -> str:
 
     return res
 
+
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """Destroys the user session_id"""
@@ -55,7 +56,7 @@ def logout():
 
     AUTH.destroy_session(user.id)
 
-    return redirect(urlfor('/'))
+    return redirect(url_for('/'))
 
 
 if __name__ == "__main__":
