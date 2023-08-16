@@ -36,9 +36,6 @@ def getSession() -> str:
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if not email or not password:
-        abort(400)
-
     if not AUTH.valid_login(email, password):
         abort(401)
 
