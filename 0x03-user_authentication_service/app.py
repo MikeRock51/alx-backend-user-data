@@ -70,7 +70,7 @@ def userProfile():
     return jsonify({"email": user.email})
 
 
-@app.route('/reset_pssword', methods=['POST'], strict_slashes=False)
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """
         Generates and returns a password reset
