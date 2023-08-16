@@ -27,7 +27,7 @@ def createUser() -> str:
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
-    return jsonify({"email": email, "message": "user created"}), 201
+    return jsonify({"email": email, "message": "user created"})
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
