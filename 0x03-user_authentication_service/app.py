@@ -11,13 +11,13 @@ AUTH = Auth()
 
 
 @app.route('/', strict_slashes=False)
-def home():
+def home() -> str:
     """Home route"""
     return jsonify({"message": "Bienvenue"}), 200
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def createUser():
+def createUser() -> str:
     """Creates a new user"""
     email = request.form.get('email')
     password = request.form.get('password')
@@ -31,7 +31,7 @@ def createUser():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def getSession():
+def getSession() -> str:
     """Creates a session for the user"""
     email = request.form.get('email')
     password = request.form.get('password')
