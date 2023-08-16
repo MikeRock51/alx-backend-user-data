@@ -29,6 +29,7 @@ def createUser():
 
     return jsonify({"email": email, "message": "user created"}), 201
 
+
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def getSession():
     """Creates a session for the user"""
